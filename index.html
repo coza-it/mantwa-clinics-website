@@ -9,913 +9,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-
-  <style>
-    /* ─── RESET & BASE ─────────────────────────────────────────── */
-    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-    :root {
-      --teal:      #1dbfc1;
-      --teal-dark: #0d8f91;
-      --teal-deep: #0d4f50;
-      --teal-light:#effafa;
-      --teal-mid:  #b8eced;
-      --accent:    #BFD1FF;
-      --black:     #000000;
-      --dark:      #1a1a1a;
-      --text:      #3a3a3a;
-      --text-muted:#6b7280;
-      --white:     #ffffff;
-      --gray-light:#f2f2f2;
-      --shadow:    0 4px 20px rgba(0,0,0,0.08);
-      --shadow-lg: 0 12px 40px rgba(0,0,0,0.12);
-      --radius:    12px;
-      --radius-sm: 6px;
-    }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      font-family: 'DM Sans', sans-serif;
-      color: var(--text);
-      background: var(--white);
-      line-height: 1.65;
-      -webkit-font-smoothing: antialiased;
-    }
-
-    img { max-width: 100%; display: block; }
-    a { text-decoration: none; color: inherit; }
-    ul { list-style: none; }
-
-    .container {
-      max-width: 1160px;
-      margin: 0 auto;
-      padding: 0 24px;
-    }
-
-    .section { padding: 88px 0; }
-
-    .eyebrow {
-      display: inline-block;
-      font-size: 0.78rem;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--teal);
-      margin-bottom: 14px;
-    }
-
-    h1 { font-size: clamp(2.4rem, 5vw, 3.6rem); font-weight: 700; line-height: 1.12; color: var(--black); }
-    h2 { font-size: clamp(1.8rem, 3.5vw, 2.5rem); font-weight: 700; line-height: 1.2; color: var(--black); }
-    h3 { font-size: 1.15rem; font-weight: 700; color: var(--black); }
-
-    p { color: var(--text); font-size: 1rem; line-height: 1.75; }
-
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      padding: 13px 28px;
-      border-radius: var(--radius-sm);
-      font-family: 'DM Sans', sans-serif;
-      font-size: 0.95rem;
-      font-weight: 600;
-      cursor: pointer;
-      border: 2px solid transparent;
-      transition: all 0.22s ease;
-      white-space: nowrap;
-    }
-
-    .btn-primary {
-      background: var(--teal);
-      color: var(--white);
-      border-color: var(--teal);
-    }
-    .btn-primary:hover {
-      background: var(--teal-dark);
-      border-color: var(--teal-dark);
-      transform: translateY(-2px);
-      box-shadow: 0 8px 24px rgba(29,191,193,0.35);
-    }
-
-    .btn-outline {
-      background: transparent;
-      color: var(--teal);
-      border-color: var(--teal);
-    }
-    .btn-outline:hover {
-      background: var(--teal);
-      color: var(--white);
-      transform: translateY(-2px);
-    }
-
-    .btn-outline-light {
-      background: transparent;
-      color: var(--white);
-      border-color: rgba(255,255,255,0.5);
-    }
-    .btn-outline-light:hover {
-      background: var(--white);
-      color: var(--teal);
-      border-color: var(--white);
-    }
-
-    /* ─── SCROLL REVEAL ─────────────────────────────────────────── */
-    .reveal {
-      opacity: 0;
-      transform: translateY(28px);
-      transition: opacity 0.6s ease, transform 0.6s ease;
-    }
-    .reveal.visible {
-      opacity: 1;
-      transform: translateY(0);
-    }
-    .reveal-delay-1 { transition-delay: 0.1s; }
-    .reveal-delay-2 { transition-delay: 0.2s; }
-    .reveal-delay-3 { transition-delay: 0.3s; }
-    .reveal-delay-4 { transition-delay: 0.4s; }
-
-    /* ─── HEADER ─────────────────────────────────────────────────── */
-    .site-header {
-      position: sticky;
-      top: 0;
-      z-index: 1000;
-      background: var(--white);
-      border-bottom: 1px solid rgba(0,0,0,0.07);
-      box-shadow: 0 2px 16px rgba(0,0,0,0.06);
-    }
-
-    .header-inner {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      height: 72px;
-    }
-
-    .logo {
-      font-size: 1.35rem;
-      font-weight: 700;
-      color: var(--teal);
-      letter-spacing: -0.02em;
-    }
-    .logo span { color: var(--black); }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 36px;
-    }
-
-    .nav-links a {
-      font-size: 0.93rem;
-      font-weight: 500;
-      color: var(--text);
-      position: relative;
-      transition: color 0.2s;
-    }
-    .nav-links a::after {
-      content: '';
-      position: absolute;
-      bottom: -4px;
-      left: 0;
-      width: 0;
-      height: 2px;
-      background: var(--teal);
-      transition: width 0.25s ease;
-    }
-    .nav-links a:hover { color: var(--teal); }
-    .nav-links a:hover::after { width: 100%; }
-    .nav-links a.active { color: var(--teal); }
-    .nav-links a.active::after { width: 100%; }
-
-    .header-actions { display: flex; align-items: center; gap: 16px; }
-
-    .hamburger {
-      display: none;
-      flex-direction: column;
-      gap: 5px;
-      cursor: pointer;
-      background: none;
-      border: none;
-      padding: 4px;
-    }
-    .hamburger span {
-      display: block;
-      width: 24px;
-      height: 2px;
-      background: var(--text);
-      border-radius: 2px;
-      transition: all 0.3s;
-    }
-    .hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-    .hamburger.open span:nth-child(2) { opacity: 0; }
-    .hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
-
-    .mobile-nav {
-      display: none;
-      position: fixed;
-      inset: 72px 0 0 0;
-      background: var(--white);
-      z-index: 999;
-      padding: 32px 24px;
-      border-top: 1px solid var(--gray-light);
-      flex-direction: column;
-      gap: 0;
-    }
-    .mobile-nav.open { display: flex; }
-    .mobile-nav a {
-      font-size: 1.1rem;
-      font-weight: 600;
-      color: var(--text);
-      padding: 16px 0;
-      border-bottom: 1px solid var(--gray-light);
-      transition: color 0.2s;
-    }
-    .mobile-nav a:hover { color: var(--teal); }
-    .mobile-nav .btn { margin-top: 24px; width: 100%; justify-content: center; }
-
-    /* ─── HERO ───────────────────────────────────────────────────── */
-    .hero {
-      padding: 88px 0 72px;
-      background: var(--white);
-      overflow: hidden;
-      position: relative;
-    }
-
-    .hero::before {
-      content: '';
-      position: absolute;
-      top: -80px;
-      right: -80px;
-      width: 520px;
-      height: 520px;
-      background: radial-gradient(circle, rgba(29,191,193,0.08) 0%, transparent 70%);
-      border-radius: 50%;
-      pointer-events: none;
-    }
-
-    .hero-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 64px;
-      align-items: center;
-    }
-
-    .hero-eyebrow {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      margin-bottom: 20px;
-    }
-    .hero-eyebrow span {
-      font-size: 0.82rem;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      color: var(--teal);
-    }
-
-    .hero h1 { margin-bottom: 22px; }
-
-    .hero-desc {
-      font-size: 1.08rem;
-      color: var(--text-muted);
-      max-width: 460px;
-      margin-bottom: 36px;
-      line-height: 1.8;
-    }
-
-    .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
-
-    .hero-visual {
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .hero-svg-wrap {
-      position: relative;
-      width: 100%;
-      max-width: 480px;
-      margin: 0 auto;
-    }
-
-    .hero-svg-bg {
-      position: absolute;
-      top: -20px;
-      right: -20px;
-      width: 420px;
-      height: 420px;
-      background: var(--teal-light);
-      border-radius: 50% 40% 55% 45% / 45% 55% 45% 55%;
-      z-index: 0;
-      animation: morphBlob 8s ease-in-out infinite;
-    }
-    @keyframes morphBlob {
-      0%,100% { border-radius: 50% 40% 55% 45% / 45% 55% 45% 55%; }
-      33%  { border-radius: 55% 45% 40% 60% / 60% 40% 55% 45%; }
-      66%  { border-radius: 40% 60% 55% 45% / 55% 45% 40% 60%; }
-    }
-
-    /* ─── STATS BAR ──────────────────────────────────────────────── */
-    .stats-bar {
-      background: var(--teal);
-      padding: 52px 0;
-    }
-
-    .stats-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 16px;
-    }
-
-    .stat-item {
-      text-align: center;
-      padding: 20px 16px;
-      border-right: 1px solid rgba(255,255,255,0.2);
-    }
-    .stat-item:last-child { border-right: none; }
-
-    .stat-number {
-      font-size: 2.6rem;
-      font-weight: 700;
-      color: var(--white);
-      line-height: 1;
-      margin-bottom: 8px;
-      display: block;
-    }
-
-    .stat-label {
-      font-size: 0.88rem;
-      font-weight: 500;
-      color: rgba(255,255,255,0.85);
-      letter-spacing: 0.04em;
-      text-transform: uppercase;
-    }
-
-    /* ─── ABOUT ──────────────────────────────────────────────────── */
-    .about { background: var(--white); padding: 0; }
-
-    .about-grid {
-      display: grid;
-      grid-template-columns: 5fr 7fr;
-      min-height: 560px;
-    }
-
-    .about-quote-panel {
-      background: #2e2e2e;
-      padding: 64px 52px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      position: relative;
-      overflow: hidden;
-    }
-    .about-quote-panel::before {
-      content: '\201C';
-      position: absolute;
-      top: -20px;
-      left: 32px;
-      font-size: 18rem;
-      font-family: Georgia, serif;
-      color: var(--teal);
-      opacity: 0.06;
-      line-height: 1;
-      pointer-events: none;
-      user-select: none;
-    }
-
-    .about-quote-text {
-      font-size: clamp(1.05rem, 1.6vw, 1.25rem);
-      line-height: 1.85;
-      color: rgba(255,255,255,0.88);
-      font-weight: 400;
-      position: relative;
-      margin-bottom: 36px;
-    }
-
-    .about-quote-author {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-    }
-    .about-quote-author::before {
-      content: '';
-      width: 32px;
-      height: 2px;
-      background: var(--teal);
-      flex-shrink: 0;
-    }
-    .about-quote-author strong {
-      display: block;
-      font-size: 0.95rem;
-      font-weight: 700;
-      color: var(--white);
-    }
-    .about-quote-author span {
-      font-size: 0.78rem;
-      color: var(--teal);
-      font-weight: 500;
-      letter-spacing: 0.04em;
-    }
-
-    .about-content-panel {
-      padding: 64px 60px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      background: var(--teal-light);
-    }
-
-    .about-content-panel h2 {
-      font-size: clamp(1.6rem, 2.8vw, 2.1rem);
-      margin-bottom: 20px;
-      line-height: 1.25;
-    }
-    .about-content-panel p {
-      color: var(--text-muted);
-      margin-bottom: 16px;
-      max-width: 480px;
-    }
-
-    .about-facts {
-      display: flex;
-      gap: 12px;
-      flex-wrap: wrap;
-      margin-top: 32px;
-      padding-top: 28px;
-      border-top: 1px solid rgba(0,0,0,0.08);
-    }
-
-    .about-fact {
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-      padding: 14px 20px;
-      background: var(--white);
-      border-radius: var(--radius-sm);
-      border-left: 3px solid var(--teal);
-      flex: 1;
-      min-width: 120px;
-    }
-    .about-fact strong {
-      font-size: 1rem;
-      font-weight: 700;
-      color: var(--black);
-    }
-    .about-fact span {
-      font-size: 0.75rem;
-      color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      font-weight: 500;
-    }
-
-    /* ─── VALUES ─────────────────────────────────────────────────── */
-    .values { background: var(--gray-light); }
-
-    .values-intro {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 48px;
-      align-items: end;
-      margin-bottom: 64px;
-    }
-    .values-intro h2 { font-size: clamp(2rem, 4vw, 2.8rem); line-height: 1.15; }
-    .values-intro p { color: var(--text-muted); font-size: 1rem; line-height: 1.8; max-width: 420px; }
-
-    .values-list {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 0;
-    }
-
-    .value-row {
-      display: flex;
-      gap: 24px;
-      align-items: flex-start;
-      padding: 36px 40px;
-      border-bottom: 1px solid rgba(0,0,0,0.08);
-      background: var(--white);
-      transition: background 0.2s;
-      position: relative;
-    }
-    .value-row:nth-child(odd) { border-right: 1px solid rgba(0,0,0,0.08); }
-    .value-row:nth-last-child(-n+2) { border-bottom: none; }
-    .value-row:hover { background: var(--teal-light); }
-
-    .value-ghost-num {
-      font-size: 3.2rem;
-      font-weight: 700;
-      color: var(--teal);
-      opacity: 0.12;
-      line-height: 1;
-      flex-shrink: 0;
-      width: 52px;
-      user-select: none;
-    }
-
-    .value-body { flex: 1; }
-    .value-body h3 {
-      font-size: 1rem;
-      font-weight: 700;
-      color: var(--black);
-      margin-bottom: 8px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    .value-body h3::before {
-      content: '';
-      width: 18px;
-      height: 2px;
-      background: var(--teal);
-      flex-shrink: 0;
-    }
-    .value-body p { font-size: 0.88rem; color: var(--text-muted); line-height: 1.75; }
-
-    /* ─── SERVICES ───────────────────────────────────────────────── */
-    .services {
-      background: #0a1a1a;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .services-header {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 48px;
-      align-items: end;
-      padding-bottom: 52px;
-      border-bottom: 1px solid rgba(255,255,255,0.08);
-      margin-bottom: 0;
-    }
-
-    .services-header h2 {
-      color: var(--white);
-      font-size: clamp(1.8rem, 3vw, 2.4rem);
-      line-height: 1.2;
-    }
-
-    .services-header p {
-      color: rgba(255,255,255,0.55);
-      font-size: 0.96rem;
-      line-height: 1.8;
-      max-width: 420px;
-    }
-
-    .service-row {
-      display: block;
-      padding: 36px 0;
-      border-bottom: 1px solid rgba(255,255,255,0.06);
-      cursor: default;
-      transition: padding-left 0.3s ease;
-      position: relative;
-    }
-
-    .service-row::before {
-      content: '';
-      position: absolute;
-      left: 0;
-      top: 0;
-      bottom: 0;
-      width: 0;
-      background: rgba(29,191,193,0.05);
-      transition: width 0.3s ease;
-      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-    }
-
-    .service-row:hover { padding-left: 16px; }
-    .service-row:hover::before { width: 100%; }
-
-    .service-row:last-child { border-bottom: none; }
-
-    .svc-num {
-      font-size: 2.4rem;
-      font-weight: 700;
-      color: var(--teal);
-      opacity: 0.2;
-      line-height: 1;
-      user-select: none;
-      transition: opacity 0.3s;
-    }
-    .service-row:hover .svc-num { opacity: 0.55; }
-
-    .svc-body { position: relative; }
-    .svc-body h3 {
-      font-size: 1.15rem;
-      font-weight: 700;
-      color: var(--white);
-      margin-bottom: 6px;
-      transition: color 0.2s;
-    }
-    .service-row:hover .svc-body h3 { color: var(--teal); }
-    .svc-body p {
-      font-size: 0.88rem;
-      color: rgba(255,255,255,0.45);
-      line-height: 1.7;
-      max-width: 540px;
-    }
-
-    .svc-arrow {
-      width: 40px;
-      height: 40px;
-      border-radius: 50%;
-      border: 1px solid rgba(255,255,255,0.1);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: rgba(255,255,255,0.25);
-      font-size: 0.75rem;
-      flex-shrink: 0;
-      transition: all 0.25s ease;
-    }
-    .service-row:hover .svc-arrow {
-      border-color: var(--teal);
-      color: var(--teal);
-      background: rgba(29,191,193,0.08);
-      transform: translateX(3px);
-    }
-
-    /* ─── MISSION ────────────────────────────────────────────────── */
-    /* ─── LOCATIONS ──────────────────────────────────────────────── */
-    .locations { background: var(--gray-light); }
-
-    .locations-header {
-      text-align: center;
-      max-width: 560px;
-      margin: 0 auto 52px;
-    }
-    .locations-header h2 { margin-top: 8px; }
-
-    .locations-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 28px;
-    }
-
-    .location-card {
-      background: var(--white);
-      border-radius: var(--radius);
-      overflow: hidden;
-      box-shadow: var(--shadow);
-      transition: transform 0.25s ease, box-shadow 0.25s ease;
-    }
-    .location-card:hover {
-      transform: translateY(-4px);
-      box-shadow: var(--shadow-lg);
-    }
-
-    .map-placeholder {
-      height: 200px;
-      background: linear-gradient(135deg, var(--teal-light) 0%, var(--teal-mid) 100%);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .map-placeholder::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      background:
-        repeating-linear-gradient(0deg, transparent, transparent 39px, rgba(29,191,193,0.12) 39px, rgba(29,191,193,0.12) 40px),
-        repeating-linear-gradient(90deg, transparent, transparent 39px, rgba(29,191,193,0.12) 39px, rgba(29,191,193,0.12) 40px);
-    }
-
-    .map-pin {
-      position: relative;
-      z-index: 1;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 4px;
-    }
-    .map-pin i {
-      font-size: 2.4rem;
-      color: var(--teal);
-      filter: drop-shadow(0 4px 8px rgba(29,191,193,0.4));
-    }
-    .map-pin span {
-      font-size: 0.78rem;
-      font-weight: 600;
-      color: var(--teal-dark);
-      background: var(--white);
-      padding: 4px 10px;
-      border-radius: 20px;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    }
-
-    .location-info { padding: 28px; }
-    .location-info h3 { font-size: 1.1rem; margin-bottom: 6px; color: var(--black); }
-
-    .location-address {
-      display: flex;
-      align-items: flex-start;
-      gap: 8px;
-      margin-bottom: 16px;
-    }
-    .location-address i { color: var(--teal); margin-top: 3px; font-size: 0.85rem; }
-    .location-address span { font-size: 0.9rem; color: var(--text-muted); line-height: 1.5; }
-
-    .location-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      background: var(--teal-light);
-      color: var(--teal-dark);
-      font-size: 0.78rem;
-      font-weight: 600;
-      padding: 5px 12px;
-      border-radius: 20px;
-    }
-
-    .locations-email {
-      text-align: center;
-      margin-top: 36px;
-    }
-    .locations-email p { color: var(--text-muted); margin-bottom: 10px; }
-    .locations-email a {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      color: var(--teal);
-      font-weight: 600;
-      font-size: 1.05rem;
-      transition: gap 0.2s;
-    }
-    .locations-email a:hover { gap: 12px; }
-
-    /* ─── CTA BANNER ─────────────────────────────────────────────── */
-    .cta-banner {
-      background: var(--dark);
-      padding: 88px 0;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .cta-banner::before {
-      content: '';
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      width: 600px;
-      height: 600px;
-      background: radial-gradient(circle, rgba(29,191,193,0.07) 0%, transparent 65%);
-      border-radius: 50%;
-      pointer-events: none;
-    }
-
-    .cta-banner .eyebrow { position: relative; }
-    .cta-banner h2 { color: var(--white); max-width: 560px; margin: 12px auto 18px; position: relative; }
-    .cta-banner p { color: rgba(255,255,255,0.6); max-width: 480px; margin: 0 auto 36px; position: relative; }
-
-    .cta-actions {
-      display: flex;
-      gap: 14px;
-      justify-content: center;
-      flex-wrap: wrap;
-      position: relative;
-    }
-
-    /* ─── FOOTER ─────────────────────────────────────────────────── */
-    .site-footer {
-      background: var(--dark);
-      border-top: 1px solid rgba(255,255,255,0.06);
-      padding: 64px 0 0;
-    }
-
-    .footer-grid {
-      display: grid;
-      grid-template-columns: 1.4fr 1fr 1fr 1fr;
-      gap: 48px;
-      padding-bottom: 52px;
-    }
-
-    .footer-brand .logo { font-size: 1.2rem; margin-bottom: 14px; }
-    .footer-brand p {
-      font-size: 0.88rem;
-      color: rgba(255,255,255,0.5);
-      line-height: 1.8;
-      max-width: 240px;
-    }
-
-    .footer-col h4 {
-      font-size: 0.78rem;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--white);
-      margin-bottom: 20px;
-    }
-
-    .footer-col ul {
-      display: flex;
-      flex-direction: column;
-      gap: 11px;
-    }
-
-    .footer-col ul li a {
-      font-size: 0.88rem;
-      color: rgba(255,255,255,0.5);
-      transition: color 0.2s;
-    }
-    .footer-col ul li a:hover { color: var(--teal); }
-
-    .footer-contact-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 8px;
-      margin-bottom: 12px;
-    }
-    .footer-contact-item i { color: var(--teal); font-size: 0.85rem; margin-top: 3px; flex-shrink: 0; }
-    .footer-contact-item span { font-size: 0.85rem; color: rgba(255,255,255,0.5); line-height: 1.6; }
-    .footer-contact-item a { color: rgba(255,255,255,0.5); transition: color 0.2s; }
-    .footer-contact-item a:hover { color: var(--teal); }
-
-    .footer-bottom {
-      border-top: 1px solid rgba(255,255,255,0.07);
-      padding: 20px 0;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
-
-    .footer-bottom p { font-size: 0.83rem; color: rgba(255,255,255,0.35); }
-
-    .social-links {
-      display: flex;
-      gap: 12px;
-    }
-
-    .social-links a {
-      width: 36px;
-      height: 36px;
-      border-radius: 8px;
-      background: rgba(255,255,255,0.06);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: rgba(255,255,255,0.4);
-      font-size: 0.85rem;
-      transition: background 0.2s, color 0.2s;
-    }
-    .social-links a:hover {
-      background: var(--teal);
-      color: var(--white);
-    }
-
-    /* ─── RESPONSIVE ─────────────────────────────────────────────── */
-    @media (max-width: 1024px) {
-      .hero-grid { gap: 40px; }
-      .about-grid { gap: 0; }
-      .services-header { grid-template-columns: 1fr; gap: 16px; }
-      .footer-grid { grid-template-columns: 1fr 1fr; gap: 36px; }
-    }
-
-    @media (max-width: 768px) {
-      .section { padding: 64px 0; }
-
-      .nav-links, .header-actions .btn { display: none; }
-      .hamburger { display: flex; }
-
-      .hero { padding: 56px 0 48px; }
-      .hero-grid { grid-template-columns: 1fr; gap: 48px; }
-      .hero-visual { order: -1; }
-      .hero-svg-bg { width: 280px; height: 280px; top: -10px; right: -10px; }
-
-      .stats-grid { grid-template-columns: repeat(2, 1fr); }
-      .stat-item { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.15); }
-      .stat-item:nth-child(odd) { border-right: 1px solid rgba(255,255,255,0.15); }
-      .stat-item:nth-last-child(-n+2) { border-bottom: none; }
-
-      .about-grid { grid-template-columns: 1fr; }
-      .about-quote-panel { padding: 52px 32px; }
-      .about-content-panel { padding: 52px 32px; }
-      .values-intro { grid-template-columns: 1fr; gap: 20px; }
-      .values-list { grid-template-columns: 1fr; }
-      .value-row:nth-child(odd) { border-right: none; }
-      .value-row:nth-last-child(-n+2) { border-bottom: 1px solid rgba(0,0,0,0.08); }
-      .value-row:last-child { border-bottom: none; }
-      .service-row { grid-template-columns: 48px 1fr; gap: 20px; }
-      .svc-arrow { display: none; }
-      .locations-grid { grid-template-columns: 1fr; }
-      .footer-grid { grid-template-columns: 1fr 1fr; gap: 28px; }
-    }
-
-    @media (max-width: 480px) {
-      .footer-grid { grid-template-columns: 1fr; }
-      .hero-actions { flex-direction: column; }
-      .hero-actions .btn { width: 100%; justify-content: center; }
-    }
-  </style>
+  <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
 
@@ -964,7 +58,7 @@
             </div>
             <h1 class="reveal reveal-delay-1">Your Health Is<br />Our Priority.</h1>
             <p class="hero-desc reveal reveal-delay-2">
-              Two dedicated clinics in Kutlwanong and Thabong, committed to delivering compassionate, affordable primary healthcare to every patient. Led by Dr. Malapa Modisane.
+              Two clinics. One purpose. Mantwa Clinics serves the communities of Kutlwanong and Thabong with honest, accessible care, every patient, every time.
             </p>
             <div class="hero-actions reveal reveal-delay-3">
               <a href="#services" class="btn btn-primary">Our Services <i class="fas fa-chevron-right"></i></a>
@@ -975,68 +69,7 @@
           <div class="hero-visual reveal reveal-delay-2">
             <div class="hero-svg-wrap">
               <div class="hero-svg-bg"></div>
-              <svg viewBox="0 0 460 480" fill="none" xmlns="http://www.w3.org/2000/svg" style="position:relative;z-index:1;width:100%;">
-                <!-- Background rings -->
-                <circle cx="230" cy="240" r="195" fill="rgba(29,191,193,0.04)" stroke="rgba(29,191,193,0.1)" stroke-width="1"/>
-                <circle cx="230" cy="240" r="152" stroke="rgba(29,191,193,0.07)" stroke-width="1" stroke-dasharray="4 7"/>
-
-                <!-- Decorative cross top-left -->
-                <g opacity="0.18">
-                  <rect x="68" y="76" width="10" height="34" rx="3" fill="#1dbfc1"/>
-                  <rect x="54" y="90" width="38" height="10" rx="3" fill="#1dbfc1"/>
-                </g>
-                <!-- Decorative cross bottom-right -->
-                <g opacity="0.11">
-                  <rect x="368" y="358" width="8" height="28" rx="3" fill="#1dbfc1"/>
-                  <rect x="356" y="370" width="32" height="8" rx="3" fill="#1dbfc1"/>
-                </g>
-
-                <!-- Tube depth / glow layer -->
-                <path d="M 230 354 L 230 212" stroke="rgba(29,191,193,0.12)" stroke-width="10" stroke-linecap="round"/>
-                <path d="M 230 212 Q 196 212 158 197 Q 132 184 130 163" stroke="rgba(29,191,193,0.12)" stroke-width="10" stroke-linecap="round"/>
-                <path d="M 230 212 Q 264 212 302 197 Q 328 184 330 163" stroke="rgba(29,191,193,0.12)" stroke-width="10" stroke-linecap="round"/>
-                <path d="M 130 163 Q 230 112 330 163" stroke="rgba(29,191,193,0.12)" stroke-width="10" stroke-linecap="round" fill="none"/>
-
-                <!-- Stethoscope tube -->
-                <path d="M 230 354 L 230 212" stroke="#1dbfc1" stroke-width="5.5" stroke-linecap="round"/>
-                <path d="M 230 212 Q 196 212 158 197 Q 132 184 130 163" stroke="#1dbfc1" stroke-width="5.5" stroke-linecap="round"/>
-                <path d="M 230 212 Q 264 212 302 197 Q 328 184 330 163" stroke="#1dbfc1" stroke-width="5.5" stroke-linecap="round"/>
-                <path d="M 130 163 Q 230 112 330 163" stroke="#1dbfc1" stroke-width="5.5" stroke-linecap="round" fill="none"/>
-
-                <!-- Y-junction -->
-                <circle cx="230" cy="212" r="5" fill="#1dbfc1"/>
-
-                <!-- Left earpiece -->
-                <circle cx="130" cy="153" r="15" fill="rgba(29,191,193,0.12)" stroke="rgba(29,191,193,0.25)" stroke-width="1"/>
-                <circle cx="130" cy="153" r="9" fill="#1dbfc1"/>
-                <circle cx="130" cy="153" r="4.5" fill="#effafa"/>
-
-                <!-- Right earpiece -->
-                <circle cx="330" cy="153" r="15" fill="rgba(29,191,193,0.12)" stroke="rgba(29,191,193,0.25)" stroke-width="1"/>
-                <circle cx="330" cy="153" r="9" fill="#1dbfc1"/>
-                <circle cx="330" cy="153" r="4.5" fill="#effafa"/>
-
-                <!-- Chest piece glow -->
-                <circle cx="230" cy="392" r="52" fill="rgba(29,191,193,0.05)"/>
-                <circle cx="230" cy="392" r="43" fill="rgba(29,191,193,0.07)" stroke="rgba(29,191,193,0.18)" stroke-width="1"/>
-
-                <!-- Chest piece (diaphragm) -->
-                <circle cx="230" cy="392" r="33" fill="#effafa" stroke="#1dbfc1" stroke-width="3"/>
-                <circle cx="230" cy="392" r="23" fill="rgba(29,191,193,0.18)"/>
-                <circle cx="230" cy="392" r="14" fill="#1dbfc1" opacity="0.88"/>
-                <circle cx="230" cy="392" r="6" fill="white"/>
-
-                <!-- ECG line -->
-                <path d="M 28 446 L 68 446 L 85 422 L 102 470 L 119 432 L 136 446 L 432 446" stroke="#1dbfc1" stroke-width="1.8" fill="none" opacity="0.18" stroke-linecap="round" stroke-linejoin="round"/>
-
-                <!-- Decorative dots -->
-                <circle cx="60"  cy="180" r="5"   fill="#1dbfc1" opacity="0.28"/>
-                <circle cx="395" cy="150" r="7"   fill="#BFD1FF" opacity="0.5"/>
-                <circle cx="80"  cy="330" r="4"   fill="#1dbfc1" opacity="0.2"/>
-                <circle cx="400" cy="340" r="5"   fill="#1dbfc1" opacity="0.2"/>
-                <circle cx="378" cy="200" r="3"   fill="#BFD1FF" opacity="0.35"/>
-                <circle cx="55"  cy="380" r="3"   fill="#1dbfc1" opacity="0.22"/>
-              </svg>
+              <img src="drmodisane.jpeg" alt="Dr. Malapa Modisane, Founder &amp; Medical Director of Mantwa Clinics" class="hero-photo" />
             </div>
           </div>
         </div>
@@ -1048,15 +81,15 @@
       <div class="container">
         <div class="stats-grid">
           <div class="stat-item reveal">
-            <span class="stat-number">5,000+</span>
+            <span class="stat-number" data-target="5000" data-suffix="+">0</span>
             <span class="stat-label">Patients Served</span>
           </div>
           <div class="stat-item reveal reveal-delay-1">
-            <span class="stat-number">30+</span>
+            <span class="stat-number" data-target="30" data-suffix="+">0</span>
             <span class="stat-label">Years of Service</span>
           </div>
           <div class="stat-item reveal reveal-delay-2">
-            <span class="stat-number">2</span>
+            <span class="stat-number" data-target="2" data-suffix="">0</span>
             <span class="stat-label">Clinic Locations</span>
           </div>
         </div>
@@ -1069,7 +102,7 @@
 
         <div class="about-quote-panel reveal">
           <p class="about-quote-text">
-            Where you live should never decide the quality of care you receive. Every person who walks through our doors deserves to be heard, respected, and properly treated. That is not an aspiration for us. It is the minimum.
+            We are part of this community. Our patients are our neighbours. We do not forget that.
           </p>
           <div class="about-quote-author">
             <div>
@@ -1085,26 +118,12 @@
             <h2>Built for the people of Kutlwanong and Thabong</h2>
           </div>
           <p class="reveal reveal-delay-1" style="margin-top:16px;">
-            Mantwa Clinics was founded on one conviction: that proximity to a city should not be a prerequisite for good healthcare. Dr. Malapa Modisane built these two practices from the ground up, and they remain deeply rooted in the communities they serve.
+            Mantwa Clinics provides primary healthcare to the communities of Kutlwanong and Thabong. Led by Dr. Malapa Modisane, both practices are built around one priority: the patient in front of you.
           </p>
           <p class="reveal reveal-delay-2">
-            Our staff are not just healthcare providers. They are neighbours. They know their patients by name, understand their circumstances, and show up with genuine care every single day.
+            Consultations are thorough, care is accessible, and the doors are open to everyone. That is how it has always been, and that is how it will stay.
           </p>
 
-          <div class="about-facts reveal reveal-delay-3">
-            <div class="about-fact">
-              <strong>Kutlwanong &amp; Thabong</strong>
-              <span>Two locations</span>
-            </div>
-            <div class="about-fact">
-              <strong>30+ Years</strong>
-              <span>In practice</span>
-            </div>
-            <div class="about-fact">
-              <strong>Open to all</strong>
-              <span>Affordable care</span>
-            </div>
-          </div>
         </div>
 
       </div>
@@ -1123,45 +142,39 @@
 
         <div class="values-list">
           <div class="value-row reveal">
-            <div class="value-ghost-num">01</div>
             <div class="value-body">
               <h3>You come first</h3>
               <p>Every call we make as a clinic starts with one question: what is best for this patient? Not what is easiest, not what is quickest.</p>
             </div>
           </div>
           <div class="value-row reveal reveal-delay-1">
-            <div class="value-ghost-num">02</div>
             <div class="value-body">
               <h3>We see the person, not the case</h3>
               <p>Illness is personal. We take the time to listen, understand, and respond with genuine care rather than a standard script.</p>
             </div>
           </div>
           <div class="value-row reveal">
-            <div class="value-ghost-num">03</div>
             <div class="value-body">
               <h3>This is our community too</h3>
               <p>Dr. Modisane and the team are part of Kutlwanong and Thabong. The health of these communities is something we take personally.</p>
             </div>
           </div>
           <div class="value-row reveal reveal-delay-1">
-            <div class="value-ghost-num">04</div>
             <div class="value-body">
               <h3>We do what's right</h3>
               <p>No shortcuts. No compromises. We hold ourselves to the highest professional and ethical standards, even when no one is watching.</p>
             </div>
           </div>
           <div class="value-row reveal">
-            <div class="value-ghost-num">05</div>
             <div class="value-body">
               <h3>Good enough is not enough</h3>
               <p>We keep learning, keep improving, and keep pushing the standard of care higher. Your health deserves nothing less.</p>
             </div>
           </div>
           <div class="value-row reveal reveal-delay-1">
-            <div class="value-ghost-num">06</div>
             <div class="value-body">
               <h3>Healthcare is for everyone</h3>
-              <p>Cost should never be the reason someone does not get help. We keep our doors open and our rates fair, without compromise on quality.</p>
+              <p>Cost should never be the reason someone does not get help. We keep our doors open and our rates fair.</p>
             </div>
           </div>
         </div>
@@ -1222,42 +235,32 @@
         </div>
         <div class="locations-grid">
           <div class="location-card reveal">
-            <div class="map-placeholder">
-              <div class="map-pin">
-                <i class="fas fa-map-marker-alt"></i>
-                <span>Kutlwanong Clinic</span>
-              </div>
-            </div>
+            <iframe
+              src="https://maps.google.com/maps?q=7171+K8+Kutlwanong,+South+Africa&output=embed&z=15"
+              width="100%" height="220" style="border:0;display:block;"
+              allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
             <div class="location-info">
               <h3>Kutlwanong Clinic</h3>
               <div class="location-address">
                 <i class="fas fa-map-marker-alt"></i>
                 <span>7171 K8 Kutlwanong</span>
               </div>
-              <span class="location-badge">
-                <i class="fas fa-circle" style="font-size:0.5rem;"></i>
-                Now Open
-              </span>
             </div>
           </div>
 
           <div class="location-card reveal reveal-delay-1">
-            <div class="map-placeholder">
-              <div class="map-pin">
-                <i class="fas fa-map-marker-alt"></i>
-                <span>Thabong Clinic</span>
-              </div>
-            </div>
+            <iframe
+              src="https://maps.google.com/maps?q=8132+Nkoane+Road,+Thabong,+South+Africa&output=embed&z=15"
+              width="100%" height="220" style="border:0;display:block;"
+              allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
             <div class="location-info">
               <h3>Thabong Clinic</h3>
               <div class="location-address">
                 <i class="fas fa-map-marker-alt"></i>
                 <span>8132 Nkoane Road, Thabong</span>
               </div>
-              <span class="location-badge">
-                <i class="fas fa-circle" style="font-size:0.5rem;"></i>
-                Now Open
-              </span>
             </div>
           </div>
         </div>
@@ -1300,16 +303,16 @@
       <div class="footer-grid">
         <div class="footer-brand">
           <div class="logo">Mantwa <span style="color:rgba(255,255,255,0.8)">Clinics</span></div>
-          <p>Compassionate, patient-centred primary healthcare in Kutlwanong and Thabong, led by Dr. Malapa Modisane. Your health is our priority.</p>
+          <p>Two clinics. One purpose. Mantwa Clinics serves the communities of Kutlwanong and Thabong with honest, accessible care, every patient, every time.</p>
         </div>
 
         <div class="footer-col">
           <h4>Mantwa Clinics</h4>
           <ul>
-            <li><a href="#about">About Dr. Modisane</a></li>
-            <li><a href="#values">Our Mission &amp; Values</a></li>
-            <li><a href="#about">Our Team</a></li>
-            <li><a href="#">News &amp; Updates</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#locations">Locations</a></li>
+            <li><a href="#contact">Contact</a></li>
           </ul>
         </div>
 
@@ -1342,64 +345,12 @@
 
       <div class="footer-bottom">
         <p>Copyright &copy; 2026 Mantwa Clinics. All rights reserved.</p>
-        <div class="social-links">
-          <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-          <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-          <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-          <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
-        </div>
+        <p style="font-size:0.78rem;color:rgba(255,255,255,0.22);margin-top:6px;">Powered by <a href="https://coza.co.za" style="color:rgba(255,255,255,0.35);text-decoration:none;" target="_blank" rel="noopener">Coza</a></p>
       </div>
     </div>
   </footer>
 
-  <script>
-    /* Mobile nav */
-    const hamburger = document.getElementById('hamburger');
-    const mobileNav = document.getElementById('mobile-nav');
 
-    hamburger.addEventListener('click', () => {
-      const open = mobileNav.classList.toggle('open');
-      hamburger.classList.toggle('open', open);
-      hamburger.setAttribute('aria-expanded', open);
-      document.body.style.overflow = open ? 'hidden' : '';
-    });
-
-    function closeMobileNav() {
-      mobileNav.classList.remove('open');
-      hamburger.classList.remove('open');
-      hamburger.setAttribute('aria-expanded', 'false');
-      document.body.style.overflow = '';
-    }
-
-    /* Scroll reveal */
-    const revealObserver = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          e.target.classList.add('visible');
-          revealObserver.unobserve(e.target);
-        }
-      });
-    }, { threshold: 0.12 });
-
-    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
-
-
-    /* Active nav on scroll */
-    const sections = document.querySelectorAll('section[id]');
-    const navLinks  = document.querySelectorAll('.nav-links a');
-
-    const navObserver = new IntersectionObserver((entries) => {
-      entries.forEach(e => {
-        if (e.isIntersecting) {
-          navLinks.forEach(a => a.classList.remove('active'));
-          const active = document.querySelector(`.nav-links a[href="#${e.target.id}"]`);
-          if (active) active.classList.add('active');
-        }
-      });
-    }, { threshold: 0.45 });
-
-    sections.forEach(s => navObserver.observe(s));
-  </script>
-
+  <script src="script.js"></script>
 </body>
 </html>
