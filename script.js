@@ -70,3 +70,35 @@ const countObserver = new IntersectionObserver((entries) => {
 }, { threshold: 0.5 });
 
 document.querySelectorAll('.stat-number[data-target]').forEach(el => countObserver.observe(el));
+
+/* Booking form — submit via fetch, stay on page */
+const bookingForm = document.getElementById('booking-form');
+if (bookingForm) {
+  bookingForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const btn = document.getElementById('form-submit');
+    const success = document.getElementById('form-success');
+    btn.disabled = true;
+    btn.textContent = 'Sending…';
+    try {
+      const res = await fetch('https://formspree.io/f/xeebkenv', {
+        method: 'POST',
+        body: new FormData(bookingForm),
+        headers: { Accept: 'application/json' }
+      });
+      if (res.ok) {
+        bookingForm.reset();
+        success.style.display = 'flex';
+        btn.style.display = 'none';
+      } else {
+        btn.disabled = false;
+        btn.innerHTML = 'Send Request <i class="fas fa-arrow-right"></i>';
+        alert('Something went wrong. Please try again or call us directly.');
+      }
+    } catch {
+      btn.disabled = false;
+      btn.innerHTML = 'Send Request <i class="fas fa-arrow-right"></i>';
+      alert('Something went wrong. Please try again or call us directly.');
+    }
+  });
+}
