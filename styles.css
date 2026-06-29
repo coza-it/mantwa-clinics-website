@@ -931,8 +931,9 @@ p { color: var(--text); font-size: 1rem; line-height: 1.75; }
 
   .hero { padding: 56px 0 48px; }
   .hero-grid { grid-template-columns: 1fr; gap: 48px; }
-  .hero-visual { order: -1; }
+  .hero-visual { order: -1; overflow: hidden; border-radius: 20px; }
   .hero-svg-bg { width: 280px; height: 280px; top: -10px; right: -10px; }
+  .hero-grid > div:not(.hero-visual) { position: relative; z-index: 1; }
 
   .stats-grid { grid-template-columns: repeat(2, 1fr); }
   .stat-item { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.15); }
